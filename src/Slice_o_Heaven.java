@@ -16,7 +16,7 @@ public class Slice_o_Heaven {
     public static final String DEF_PIZZA_INGREDIENTS = "Mozzarella Cheese";
     public static final double DEF_ORDER_TOTAL = 15.00;
 
-    
+
     public Slice_o_Heaven() {
         this.orderID = DEF_ORDER_ID;
         this.pizzaIngredients = DEF_PIZZA_INGREDIENTS;
@@ -100,12 +100,50 @@ public class Slice_o_Heaven {
         System.out.println("Order Total: " + orderTotal);
     }
 
+    public void processCardPayment(String cardNumber, String expiryDate, int cvv) {
+        int cardLength = cardNumber.length();
+        if (cardLength == 14) {
+            System.out.println("Card accepted");
+        } else {
+            System.out.println("Invalid card");
+        }
+
+        int firstCardDigit = Integer.parseInt(cardNumber.substring(0, 1));
+
+        String blacklistedNumber = "12345678901234";
+        if (cardNumber.equals(blacklistedNumber)) {
+            System.out.println("Card is blacklisted. Please use another card");
+        }
+
+        int lastFourDigits = Integer.parseInt(cardNumber.substring(cardNumber.length() - 4));
+
+        StringBuilder cardNumberToDisplay = new StringBuilder();
+        cardNumberToDisplay.append(cardNumber.charAt(0));
+        for (int i = 1; i < cardNumber.length() - 4; i++) {
+            cardNumberToDisplay.append('*');
+        }
+        cardNumberToDisplay.append(cardNumber.substring(cardNumber.length() - 4));
+
+        System.out.println("First digit of card: " + firstCardDigit);
+        System.out.println("Last four digits of card: " + lastFourDigits);
+        System.out.println("Card number to display: " + cardNumberToDisplay);
+    }
+
+    public void specialOfTheDay(String pizzaOfTheDay, String sideOfTheDay, String specialPrice) {
+        StringBuilder specialDetails = new StringBuilder();
+        specialDetails.append("Pizza of the day: ").append(pizzaOfTheDay);
+        specialDetails.append("\nSide of the day: ").append(sideOfTheDay);
+        specialDetails.append("\nSpecial price: ").append(specialPrice);
+        System.out.println(specialDetails.toString());
+    }
+
     public static void main(String[] args) {
         Slice_o_Heaven orderSystem = new Slice_o_Heaven("12345", "Pepperoni", 50.0);
         orderSystem.takeOrder("12345", 50.0);
+        orderSystem.processCardPayment("12345678901234", "12/25", 123);
+        orderSystem.specialOfTheDay("Margherita", "Garlic Bread", "$12");
     }
 }
-        
             
     
        
